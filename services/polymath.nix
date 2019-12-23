@@ -5,7 +5,7 @@
     serviceConfig = {
         Type = "simple";
         User = "thomas";
-        ExecStart = "${pkgs.python3} ./server.py";
+        ExecStart = "${pkgs.python3}/bin/python ./server.py";
         WorkingDirectory = "/home/thomas/services/polymath";
         Restart = "on-failure";
     };
