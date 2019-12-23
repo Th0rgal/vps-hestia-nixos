@@ -17,13 +17,13 @@ in
       serviceConfig = {
           Type = "simple";
           User = "thomas";
-          ExecStart = "${python-with-my-packages}/bin/python ./server.py";
+          ExecStart = python-with-my-packages + "/bin/python ./server.py";
           WorkingDirectory = "/home/thomas/services/polymath";
           Restart = "on-failure";
       };
 
       environment = {
-          PYTHON_HOME = ${python-with-my-packages};
+          PYTHON_HOME = python-with-my-packages;
       };
 
       wantedBy = [ "multi-user.target" ];
