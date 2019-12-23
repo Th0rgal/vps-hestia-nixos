@@ -1,18 +1,30 @@
-{ pkgs }: {
-    description = "PROGRAMMESWAG";
-    after = [ "network.target" ];
+{ pkgs }:
+with pkgs;
+let
+  my-python-packages = python-packages: with python-packages; [
+    aiohttp
+    pywal
+    pygame
+    pillow
+    requests
+  ];
+  python-with-my-packages = python3.withPackages my-python-packages;
+in
+  {
+      description = "PROGRAMMESWAG";
+      after = [ "network.target" ];
 
-    serviceConfig = {
-        Type = "simple";
-        User = "thomas";
-        ExecStart = "${pkgs.python3}/bin/python ./server.py";
-        WorkingDirectory = "/home/thomas/services/polymath";
-        Restart = "on-failure";
-    };
+      serviceConfig = {
+          Type = "simple";
+          User = "thomas";
+          ExecStart = "${python-with-my-packages}/bin/python ./server.py";
+          WorkingDirectory = "/home/thomas/services/polymath";
+          Restart = "on-failure";
+      };
 
-    environment = {
-        JAVA_HOME = pkgs.python3;
-    };
+      environment = {
+          PYTHON_HOME = ${python-with-my-packages};
+      };
 
-    wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
 }
