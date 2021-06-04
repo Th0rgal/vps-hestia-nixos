@@ -33,7 +33,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
   };
-  system.stateVersion = "19.09";
+  system.stateVersion = "21.09";
 
 }
 
